@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMaster - Smart Itinerary Generator</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://png.pngtree.com/png-vector/20190226/ourmid/pngtree-vacation-and-travel-icon-png-image_719322.jpg">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <!-- Date Range Picker -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        .navbar-custom {
+            background: #E6D8C3;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: 600;
+            color: #FF8C00 !important;
+        }
+
+        .nav-link {
+            color: #3B3B3B;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #FF8C00 !important;
+        }
+
+        .itinerary-form {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .preference-card {
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .preference-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 140, 0, 0.3);
+        }
+
+        .preference-card.selected {
+            border-color: #FF8C00;
+            background: rgba(255, 140, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #FF8C00, #FFA500);
+            border: none;
+            padding: 12px 25px;
+            font-weight: 500;
+            border-radius: 25px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #FFA500, #FFB84D);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .btn-outline-primary {
+            color: #FF8C00;
+            border-color: #FF8C00;
+        }
+
+        .btn-outline-primary:hover {
+            background: #FF8C00;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .generated-itinerary {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .activity-card {
+            border-left: 4px solid #FF8C00;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
+        }
+
+        .time-slot {
+            color: #FFA500;
+            font-weight: 600;
+        }
+
+        .form-control, .form-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #FF8C00;
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(255, 140, 0, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-label {
+            color: #FFA500;
+            font-weight: 500;
+        }
+
+        .preference-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #FFA500;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .day-tab {
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 5px;
+            background: rgba(0, 0, 0, 0.4);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .day-tab.active {
+            background: linear-gradient(45deg, #FF8C00, #FFA500);
+            color: white;
+        }
+
+        .weather-info {
+            background: linear-gradient(45deg, #FF8C00, #FFA500);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1, h2, h3, h4, h5 {
+            color: #FFA500;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .range-labels {
+            color: #FFA500;
+        }
+
+        @media (max-width: 768px) {
+            .itinerary-form {
+                padding: 20px;
+            }
+        }
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <video autoplay muted loop id="bg-video">
+        <source src="images/tropical-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="d-flex justify-content-end">
+        <a href="index.html" class="btn btn-primary back-btn shadow-lg">Back To Home</a>
+    </div>
+    <div class="container my-5">
+        <h1 class="text-center mb-5" style="text-shadow: 5px 4px 4px black;">Smart Itinerary Generator</h1>
+        
+        <!-- Itinerary Form -->
+        <div class="itinerary-form">
+            <form id="itineraryForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Destination</label>
+                        <input type="text" class="form-control" id="destination" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Travel Dates</label>
+                        <input type="text" class="form-control" id="daterange" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Budget Range</label>
+                    <input type="range" class="form-range" id="budget-range" min="1" max="5" step="1">
+                    <div class="range-labels">
+                        <span>Budget</span>
+                        <span>Moderate</span>
+                        <span>Luxury</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Travel Preferences</label>
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <div class="preference-card p-3 text-center" data-preference="culture">
+                                <div class="preference-icon">🏛️</div>
+                                <h6>Culture & History</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="preference-card p-3 text-center" data-preference="adventure">
+                                <div class="preference-icon">🏃</div>
+                                <h6>Adventure</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="preference-card p-3 text-center" data-preference="relaxation">
+                                <div class="preference-icon">🌅</div>
+                                <h6>Relaxation</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="preference-card p-3 text-center" data-preference="food">
+                                <div class="preference-icon">🍽️</div>
+                                <h6>Food & Dining</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label">Number of Travelers</label>
+                        <input type="number" class="form-control" id="travelers" min="1" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Preferred Activity Level</label>
+                        <select class="form-select" id="activityLevel">
+                            <option value="light">Light</option>
+                            <option value="moderate">Moderate</option>
+                            <option value="intense">Intense</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Generate Itinerary</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Generating your perfect itinerary...</p>
+        </div>
+
+        <!-- Generated Itinerary -->
+        <div class="generated-itinerary" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3>Your Custom Itinerary</h3>
+                <button class="btn btn-outline-primary" onclick="downloadItinerary()">Download PDF</button>
+            </div>
+
+            <div class="weather-info mb-4">
+                <h5 style="color: white;">Weather Forecast</h5>
+                <div id="weatherInfo"></div>
+            </div>
+
+            <div class="day-tabs d-flex flex-wrap mb-4" id="dayTabs">
+                <!-- Day tabs will be generated dynamically -->
+            </div>
+
+            <div id="itineraryContent">
+                <!-- Itinerary content will be generated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script>
+        // Initialize date range picker
+        $(function() {
+            $('#daterange').daterangepicker({
+                opens: 'left',
+                minDate: moment()
+            });
+        });
+
+        // Toggle preference cards
+        $('.preference-card').click(function() {
+            $(this).toggleClass('selected');
+        });
+
+        // Form submission
+        $('#itineraryForm').submit(function(e) {
+            e.preventDefault();
+            
+            // Show loading spinner
+            $('.loading-spinner').show();
+            $('.generated-itinerary').hide();
+
+            // Simulate API call delay
+            setTimeout(function() {
+                generateItinerary();
+            }, 2000);
+        });
+
+        function generateItinerary() {
+            // Hide loading spinner
+            $('.loading-spinner').hide();
+
+            // Get form values
+            const destination = $('#destination').val();
+            const dates = $('#daterange').val();
+            const budget = $('#budget-range').val();
+            const preferences = $('.preference-card.selected').map(function() {
+                return $(this).data('preference');
+            }).get();
+
+            // Generate day tabs
+            const startDate = moment($('#daterange').data('daterangepicker').startDate);
+            const endDate = moment($('#daterange').data('daterangepicker').endDate);
+            const days = endDate.diff(startDate, 'days') + 1;
+
+            let dayTabsHTML = '';
+            for (let i = 1; i <= days; i++) {
+                dayTabsHTML += `
+                    <div class="day-tab ${i === 1 ? 'active' : ''}" onclick="showDay(${i})">
+                        Day ${i}
+                    </div>
+                `;
+            }
+            $('#dayTabs').html(dayTabsHTML);
+
+            // Generate sample weather info
+            $('#weatherInfo').html(`
+                <div class="d-flex justify-content-around">
+                    <div>Today: 75°F, Sunny</div>
+                    <div>Tomorrow: 72°F, Partly Cloudy</div>
+                    <div>Day After: 70°F, Clear</div>
+                </div>
+            `);
+
+            // Generate sample itinerary for Day 1
+            generateDayItinerary(1);
+
+            // Show generated itinerary
+            $('.generated-itinerary').show();
+        }
+
+        function generateDayItinerary(day) {
+            const activities = [
+                { time: '09:00 AM', activity: 'Breakfast at local café', description: 'Start your day with authentic local cuisine' },
+                { time: '10:30 AM', activity: 'Guided City Tour', description: 'Explore the main attractions with an expert guide' },
+                { time: '01:00 PM', activity: 'Lunch Break', description: 'Traditional restaurant with panoramic views' },
+                { time: '03:00 PM', activity: 'Museum Visit', description: 'Discover local history and culture' },
+                { time: '05:30 PM', activity: 'Shopping Time', description: 'Visit local markets and boutiques' },
+                { time: '07:30 PM', activity: 'Dinner Experience', description: 'Fine dining with cultural entertainment' }
+            ];
+
+            let itineraryHTML = `<h4 class="mb-4">Day ${day} Schedule</h4>`;
+            
+            activities.forEach(item => {
+                itineraryHTML += `
+                    <div class="activity-card">
+                        <div class="time-slot">${item.time}</div>
+                        <h5>${item.activity}</h5>
+                        <p class="mb-0">${item.description}</p>
+                    </div>
+                `;
+            });
+
+            $('#itineraryContent').html(itineraryHTML);
+        }
+
+        function showDay(day) {
+            $('.day-tab').removeClass('active');
+            $(`.day-tab:nth-child(${day})`).addClass('active');
+            generateDayItinerary(day);
+        }
+
+        function downloadItinerary() {
+            alert('Downloading itinerary as PDF...');
+            // Implement PDF download functionality
+        }
+    </script>
+</body>
+
+</html> 

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMaster - Budget Estimator</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon"
+        href="https://png.pngtree.com/png-vector/20190226/ourmid/pngtree-vacation-and-travel-icon-png-image_719322.jpg">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@500&display=swap"
+        rel="stylesheet">
+    <!-- Date Range Picker -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* background-color: #f5f5f5; */
+            color: white;
+        }
+
+        .budget-form {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .cost-category {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .cost-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .category-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .form-control,
+        .form-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 8px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #FF8C00;
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(255, 140, 0, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-label {
+            color: #FFA500;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #FF8C00, #FFA500);
+            border: none;
+            padding: 12px 25px;
+            font-weight: 500;
+            border-radius: 25px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #FFA500, #FFB84D);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+            color: white;
+        }
+
+        .budget-summary {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .summary-card {
+            background: linear-gradient(45deg, #FF8C00, #FFA500);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 300px;
+            width: 100%;
+        }
+
+        .currency-display {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .saving-tip {
+            background: rgba(0, 0, 0, 0.6);
+            border-left: 4px solid #FF8C00;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .comparison-bar {
+            height: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .comparison-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #FF8C00, #FFA500);
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .budget-form {
+                padding: 20px;
+            }
+        }
+
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contsiner-fluid">
+        <video autoplay muted loop id="bg-video">
+            <source src="https://videos.pexels.com/video-files/855633/855633-hd_1920_1080_25fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="d-flex justify-content-end">
+            <a href="index.html" class="btn btn-primary back-btn shadow-lg">Back To Home</a>
+        </div>
+        <div class="container my-5">
+            <h1 class="text-center mb-5" style="text-shadow: 4px 4px 6px black;">Travel Budget Estimator</h1>
+
+            <!-- Budget Form -->
+            <div class="budget-form shadow-lg">
+                <form id="budgetForm">
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Destination</label>
+                            <input type="text" class="form-control" id="destination" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Duration (Days)</label>
+                            <input type="number" class="form-control" id="duration" min="1" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Number of Travelers</label>
+                            <input type="number" class="form-control" id="travelers" min="1" required>
+                        </div>
+                    </div>
+
+                    <!-- Transportation -->
+                    <div class="cost-category">
+                        <div class="category-header">
+                            <h5><span class="category-icon">✈️</span> Transportation</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Flight Cost (per person)</label>
+                                <input type="number" class="form-control cost-input" data-category="transportation"
+                                    id="flightCost" min="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Local Transportation Budget (per day)</label>
+                                <input type="number" class="form-control cost-input" data-category="transportation"
+                                    id="localTransport" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accommodation -->
+                    <div class="cost-category">
+                        <div class="category-header">
+                            <h5><span class="category-icon">🏨</span> Accommodation</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Hotel/Accommodation (per night)</label>
+                                <input type="number" class="form-control cost-input" data-category="accommodation"
+                                    id="hotelCost" min="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Accommodation Type</label>
+                                <select class="form-select" id="accommodationType">
+                                    <option value="hostel">Hostel</option>
+                                    <option value="hotel">Hotel</option>
+                                    <option value="luxury">Luxury Hotel</option>
+                                    <option value="apartment">Apartment</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Food & Dining -->
+                    <div class="cost-category">
+                        <div class="category-header">
+                            <h5><span class="category-icon">🍽️</span> Food & Dining</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Breakfast Budget (per day)</label>
+                                <input type="number" class="form-control cost-input" data-category="food"
+                                    id="breakfastCost" min="0">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Lunch Budget (per day)</label>
+                                <input type="number" class="form-control cost-input" data-category="food" id="lunchCost"
+                                    min="0">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Dinner Budget (per day)</label>
+                                <input type="number" class="form-control cost-input" data-category="food"
+                                    id="dinnerCost" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activities -->
+                    <div class="cost-category">
+                        <div class="category-header">
+                            <h5><span class="category-icon">🎯</span> Activities & Entertainment</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Activities Budget (per day)</label>
+                                <input type="number" class="form-control cost-input" data-category="activities"
+                                    id="activitiesCost" min="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Entertainment Budget (per day)</label>
+                                <input type="number" class="form-control cost-input" data-category="activities"
+                                    id="entertainmentCost" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Miscellaneous -->
+                    <div class="cost-category">
+                        <div class="category-header">
+                            <h5><span class="category-icon">🎁</span> Miscellaneous</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Shopping Budget</label>
+                                <input type="number" class="form-control cost-input" data-category="misc"
+                                    id="shoppingCost" min="0">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Insurance Cost</label>
+                                <input type="number" class="form-control cost-input" data-category="misc"
+                                    id="insuranceCost" min="0">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Emergency Fund</label>
+                                <input type="number" class="form-control cost-input" data-category="misc"
+                                    id="emergencyFund" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Calculate Budget</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Budget Summary -->
+            <div class="budget-summary" style="display: none;">
+                <h3 class="mb-4">Budget Summary</h3>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="summary-card">
+                            <h5>Total Estimated Cost</h5>
+                            <div class="currency-display" id="totalCost">$0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="summary-card">
+                            <h5>Cost Per Person</h5>
+                            <div class="currency-display" id="perPersonCost">$0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="summary-card">
+                            <h5>Daily Budget</h5>
+                            <div class="currency-display" id="dailyCost">$0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h4>Cost Breakdown</h4>
+                        <div class="chart-container">
+                            <canvas id="costBreakdownChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Budget Analysis</h4>
+                        <div id="categoryBreakdown"></div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h4>Money-Saving Tips</h4>
+                    <div id="savingTips"></div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary" onclick="downloadBudget()">Download Budget Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let costBreakdownChart;
+
+        $('#budgetForm').submit(function (e) {
+            e.preventDefault();
+            calculateBudget();
+        });
+
+        function calculateBudget() {
+            // Get form values
+            const duration = parseInt($('#duration').val());
+            const travelers = parseInt($('#travelers').val());
+
+            // Calculate costs
+            const transportation = (parseFloat($('#flightCost').val()) * travelers) +
+                (parseFloat($('#localTransport').val()) * duration * travelers);
+            const accommodation = parseFloat($('#hotelCost').val()) * duration;
+            const food = (parseFloat($('#breakfastCost').val()) + parseFloat($('#lunchCost').val()) +
+                parseFloat($('#dinnerCost').val())) * duration * travelers;
+            const activities = (parseFloat($('#activitiesCost').val()) + parseFloat($('#entertainmentCost').val())) *
+                duration * travelers;
+            const misc = parseFloat($('#shoppingCost').val()) + parseFloat($('#insuranceCost').val()) +
+                parseFloat($('#emergencyFund').val());
+
+            const totalCost = transportation + accommodation + food + activities + misc;
+            const perPersonCost = totalCost / travelers;
+            const dailyCost = totalCost / duration;
+
+            // Update summary
+            $('#totalCost').text('$' + totalCost.toFixed(2));
+            $('#perPersonCost').text('$' + perPersonCost.toFixed(2));
+            $('#dailyCost').text('$' + dailyCost.toFixed(2));
+
+            // Update chart
+            updateChart({
+                transportation: transportation,
+                accommodation: accommodation,
+                food: food,
+                activities: activities,
+                misc: misc
+            });
+
+            // Generate category breakdown
+            generateCategoryBreakdown({
+                transportation: transportation,
+                accommodation: accommodation,
+                food: food,
+                activities: activities,
+                misc: misc
+            }, totalCost);
+
+            // Generate saving tips
+            generateSavingTips();
+
+            // Show summary
+            $('.budget-summary').show();
+        }
+
+        function updateChart(data) {
+            const ctx = document.getElementById('costBreakdownChart').getContext('2d');
+
+            if (costBreakdownChart) {
+                costBreakdownChart.destroy();
+            }
+
+            costBreakdownChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Transportation', 'Accommodation', 'Food', 'Activities', 'Miscellaneous'],
+                    datasets: [{
+                        data: [
+                            data.transportation,
+                            data.accommodation,
+                            data.food,
+                            data.activities,
+                            data.misc
+                        ],
+                        backgroundColor: [
+                            '#FF8C00',  // Dark Orange
+                            '#FFA500',  // Orange
+                            '#FFB84D',  // Light Orange
+                            '#FFC266',  // Lighter Orange
+                            '#FFD699'   // Lightest Orange
+                        ],
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#FFA500',
+                                font: {
+                                    family: 'Poppins',
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function generateCategoryBreakdown(data, total) {
+            let html = '';
+            Object.entries(data).forEach(([category, amount]) => {
+                const percentage = ((amount / total) * 100).toFixed(1);
+                html += `
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span class="text-capitalize">${category}</span>
+                            <span>$${amount.toFixed(2)} (${percentage}%)</span>
+                        </div>
+                        <div class="comparison-bar">
+                            <div class="comparison-fill" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#categoryBreakdown').html(html);
+        }
+
+        function generateSavingTips() {
+            const tips = [
+                "Book flights in advance and use flight comparison tools",
+                "Consider staying in hostels or apartments instead of hotels",
+                "Cook some meals instead of eating out every time",
+                "Use public transportation instead of taxis",
+                "Look for free walking tours and attractions",
+                "Travel during off-peak seasons for better deals"
+            ];
+
+            let html = '';
+            tips.forEach(tip => {
+                html += `
+                    <div class="saving-tip">
+                        <i class="bi bi-lightbulb"></i> ${tip}
+                    </div>
+                `;
+            });
+            $('#savingTips').html(html);
+        }
+
+        function downloadBudget() {
+            alert('Downloading budget report as PDF...');
+            // Implement PDF download functionality
+        }
+    </script>
+</body>
+
+</html>

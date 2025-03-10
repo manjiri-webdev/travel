@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMaster - City Lights</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon"
+        href="https://png.pngtree.com/png-vector/20190226/ourmid/pngtree-vacation-and-travel-icon-png-image_719322.jpg">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        .bg-image {
+            background-image: url(images/city-bg.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top;
+            top: 0;
+            left: 0;
+        }
+
+        /*navbar*/
+        .navbar-custom {
+            background: #f0d7b0;
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-custom.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 28px;
+            font-weight: 600;
+            color: #FF8C00 !important;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-link {
+            color: #3B3B3B !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            margin: 0 5px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #FF8C00, #FFA500);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 80%;
+        }
+
+        .nav-link:hover {
+            color: #FF8C00 !important;
+            transform: translateY(-2px);
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: none !important;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggler-icon::before,
+        .navbar-toggler-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #FF8C00;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggler-icon::before {
+            top: 0;
+        }
+
+        .navbar-toggler-icon::after {
+            bottom: 0;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+            transform: rotate(45deg);
+            top: 50%;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+            transform: rotate(-45deg);
+            bottom: 50%;
+        }
+
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            text-shadow: 2px 2px 3px #1f1131;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+        }
+
+        .cards-section {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 60px 0;
+
+        }
+
+        .btn-signin {
+            padding: 8px 20px;
+            border-radius: 25px;
+            color: #fff;
+            font-weight: 500;
+            background: linear-gradient(45deg, #D35400, #FFA500);
+            border: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-signin::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #D35400, #FFB84D);
+            transition: all 0.5s ease;
+            z-index: 1;
+        }
+
+        .btn-signin:hover::before {
+            left: 0;
+        }
+
+        .btn-signin span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-signin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ecc4ff, #8934db, #8934db);
+            border: none;
+            color: white;
+            padding: 15px 35px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 1px #1f1131;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #8934db, #e1a0ff, #482576);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 134, 193, 0.3);
+        }
+
+        .btn-subscribe {
+            background: linear-gradient(45deg, #ecc4ff, #8934db, #1f1131);
+            color: white;
+            border: none;
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 12px 30px;
+            transition: all 0.3s;
+            text-shadow: 2px 2px 1px #1f1131;
+        }
+
+        .btn-subscribe:hover {
+            background: linear-gradient(45deg, #8934db, #e1a0ff, #482576);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 134, 193, 0.3);
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) translateZ(20px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-control {
+            border-radius: 25px;
+            padding: 12px 25px;
+            border: 2px solid rgb(98 46 193 / 30%);
+        }
+
+        .form-control:focus {
+            border-color: #6e2ec1;
+            box-shadow: 0 0 0 0.25rem rgba(115, 46, 193, 0.25);
+        }
+
+        /* Update smalltext color */
+        .smalltext {
+            color: #e1a0ff;
+            text-shadow: 2px 2px 1px #1f1131;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: #3b3b3be0;
+            color: #F5EFE6;
+            padding: 60px 0;
+        }
+
+        .site-footer a {
+            font-size: 18px;
+        }
+
+        .site-footer a.footer-link {
+            color: #F5EFE6;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 18px;
+        }
+
+        .site-footer a.footer-link:hover {
+            color: #D35400;
+        }
+
+        .site-footer h3 {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .site-footer ul,
+        .site-footer .list-inline {
+            list-style: none;
+            padding: 0;
+        }
+
+        .site-footer ul li,
+        .site-footer .list-inline-item {
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+
+        .site-footer p.small {
+            margin-top: 20px;
+            font-size: 0.875rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #FF8C00, #FFA500);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(45deg, #FFA500, #FFB84D);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+            color: white;
+        }
+
+        .footer-link {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            padding: 5px 0;
+        }
+
+        .footer-link:hover {
+            color: #FFA500;
+            transform: translateX(5px);
+        }
+
+        .site-footer hr {
+            margin: 20px 0;
+            opacity: 0.2;
+        }
+
+        .site-footer h5 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .site-footer p.small {
+            margin-top: 20px;
+            font-size: 0.875rem;
+        }
+
+        .about-section {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 60px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container-fluid sticky-top shadow-lg">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg navbar-custom p-2">
+                        <a class="navbar-brand" href="index.html">TravelMaster</a>
+
+                        <!-- Toggle Button for Small Screens -->
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <!-- Collapsible Navbar Content -->
+                        <div class="collapse navbar-collapse" id="navbarContent">
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.html">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#book">Book Your Trip</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#new">What's New</a>
+                                </li>
+                            </ul>
+
+                            <!-- Buttons Section -->
+                            <div class="d-flex align-items-center ms-lg-3 mt-3 mt-lg-0">
+                                <a href="signin.html" class="btn btn-signin"><span>Sign In</span></a>
+                                <a href="users-data.html" class="btn btn-link ms-2 d-none" id="adminLink">User Data</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-image position-fixed h-100 w-100 z-n1 overflow-hidden">
+        </div>
+
+        <section class="hero-section position-relative shadow-lg" id="book">
+            <div class="container">
+                <div class="text-center">
+                    <p class="smalltext">Your Urban Adventure Begins</p>
+                    <h1 class="fw-bold">Welcome to City Lights</h1>
+                    <p class="lead fs-4">Explore vibrant cityscapes, iconic landmarks, and <br> hidden gems waiting to
+                        be
+                        discovered.</p>
+                    <a href="booktrip.html" class="btn btn-primary btn-lg shadow-lg">Book Your Trip</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section shadow-lg mt-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <p class="smalltext">Discover the City’s Wonders</p>
+                        <h2 class="mb-3 fs-1">Explore the Heart of the City</h2>
+                        <p>Uncover the charm of bustling streets, historic landmarks, and vibrant cultures. Every city
+                            has a story to tell—are you ready to explore?</p>
+                        <ul>
+                            <li class="mb-2">Iconic Landmarks & Hidden Gems</li>
+                            <li class="mb-2">Local Food & Street Markets</li>
+                            <li class="mb-2">Cultural & Nightlife Experiences</li>
+                            <li class="mb-2">Guided Tours & Adventure Trails</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 mt-4 mt-lg-0">
+                        <img src="images/city-about.jpg" class="img-fluid rounded shadow-lg" alt="Tropical Paradise">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cards-section shadow-lg mt-4" id="new">
+            <div class="container">
+                <div class="text-center mb-5" style="text-shadow: 2px 2px 3px #1f1131;">
+                    <p class="smalltext">Discover Experiences</p>
+                    <h2 class="fw-bold">Unveiling City Secrets</h2>
+                    <p class="lead">Immerse yourself in the city's hidden gems, local flavors, and unforgettable
+                        adventures.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card specialities-card h-100 p-3 border rounded">
+                            <img src="images/city-1.jpg" class="img-fluid card-img-top" alt="Water Sports">
+                            <div class="card-body d-flex flex-column text-center mt-auto">
+                                <h5 class="card-title mt-3 fw-bold">Art & Culture</h5>
+                                <p class="card-text mt-auto">Discover stunning galleries, live street performances, and
+                                    cultural landmarks.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card specialities-card h-100 p-3 border rounded">
+                            <img src="images/city-2.jpg" class="img-fluid card-img-top" alt="Beach Relaxation">
+                            <div class="card-body d-flex flex-column text-center mt-auto">
+                                <h5 class="card-title mt-3 fw-bold">Rooftop Dining with a View</h5>
+                                <p class="card-text mt-auto">Savor gourmet meals with breathtaking city skyline views at
+                                    sunset.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card specialities-card h-100 p-3 border rounded">
+                            <img src="images/city-3.jpg" class="img-fluid card-img-top" alt="Island Tours">
+                            <div class="card-body d-flex flex-column text-center mt-auto">
+                                <h5 class="card-title mt-3 fw-bold">Festivals & Celebrations</h5>
+                                <p class="card-text mt-auto">Immerse yourself in vibrant city festivals, dazzling
+                                    fireworks, and lively street parties.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section shadow-lg mt-4" style="background: rgba(0, 0, 0, 0.4); padding: 60px 0;">
+            <div class="container text-center" style="text-shadow: 2px 2px 3px #1f1131;">
+                <h2 class="fw-bold mb-3">Stay in the Know</h2>
+                <p class="lead mb-4">Subscribe for exclusive city travel deals, hidden gems, and expert tips.</p>
+                <form class="d-flex flex-column flex-md-row justify-content-center align-items-center">
+                    <input type="email" class="form-control mb-3 mb-md-0 me-md-3" placeholder="Enter your email"
+                        required>
+                    <button type="submit" class="btn btn-subscribe" id="btn-subscribe">Subscribe</button>
+                </form>
+                <p class="small mt-3">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <!-- Footer Section -->
+        <footer class="site-footer shadow-lg mt-4"
+            style="background: rgba(0, 0, 0, 0.6); border-top: 1px solid rgba(255, 140, 0, 0.2);">
+            <div class="container text-center">
+                <div class="row">
+                    <!-- Quick Links -->
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h3 style="color: #FFA500;">Quick Links</h3>
+                        <ul class="list-unstyled">
+                            <li><a href="#home" class="footer-link">Home</a></li>
+                            <li><a href="#start" class="footer-link">About</a></li>
+                            <li><a href="#destinations" class="footer-link">Destinations</a></li>
+                            <li><a href="#contact" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+                    <!-- Social Media -->
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h3 style="color: #FFA500;">Follow Us</h3>
+                        <div class="social-icons">
+                            <a href="https://facebook.com" target="_blank" class="social-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" class="social-icon">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="social-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://youtube.com" target="_blank" class="social-icon">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Contact Info -->
+                    <div class="col-md-4">
+                        <h3 style="color: #FFA500;">Contact</h3>
+                        <p style="color: #fff;font-size: 18px;">info@travlemaster.com</p>
+                        <p style="color: #fff;font-size: 18px;">+1 (555) 123-4567</p>
+                    </div>
+                </div>
+                <hr style="border-color: rgba(255, 140, 0, 0.2);">
+                <p class="small" style="color: #fff;">&copy; 2023 TravleMaster. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

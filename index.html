@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TravelMaster - Travel Guide</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon"
+        href="https://png.pngtree.com/png-vector/20190226/ourmid/pngtree-vacation-and-travel-icon-png-image_719322.jpg">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="media.css">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!--navbar-->
+        <div class="container-fluid sticky-top">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg navbar-custom p-2">
+                        <a class="navbar-brand" href="#">TravelMaster</a>
+
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarContent">
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#home">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#plan">Plan Your Trip</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#destinations">Destinations</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#contact">Contact</a>
+                                </li>
+                            </ul>
+
+                            <div class="d-flex align-items-center ms-lg-3 mt-3 mt-lg-0">
+                                <a href="signin.html" class="btn btn-signin"><span>Sign In</span></a>
+                                <a href="users-data.html" class="btn btn-link ms-2 d-none" id="adminLink">User Data</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!--hero-section-->
+        <section class="hero-section d-flex align-items-center text-center mt-4" id="home">
+            <div class="container">
+                <h1 class="display-4 fw-bold">Explore the World with TravleMaster</h1>
+                <p class="lead">Plan your dream vacation with our AI-powered travel planner.</p>
+                <a href="#start" class="btn btn-primary btn-lg mt-3">
+                    <span>GET STARTED</span>
+                </a>
+            </div>
+        </section>
+
+        <!--About Section-->
+        <section class="about-section shadow-lg mt-4 pb-3" id="start">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <p class="smalltext mt-3"> Travel Smarter</p>
+                        <h2 class="mb-3 fs-1">Personalized trip at your fingertips</h2>
+                        <p>
+                            <span>TravleMaster</span> empowering Your Journey with personalized AI-powered travel
+                            planning. Our website offers a seamless experience.Discover the best destinations,
+                            create tailored itineraries, and make your dream vacation a reality.Let us help you
+                            create unforgetable adventures effortlessly!
+                        </p>
+                        <ul>
+                            <li class="mb-2 ps-1">Personalized Itineraries</li>
+                            <li class="mb-2 ps-1">Expert Recommendations</li>
+                            <li class="mb-2 ps-1">Budget-Friendly Options</li>
+                            <li class="mb-2 ps-1">Inspiring Destinations</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 mt-4 mt-lg-0">
+                        <img src="images/about-img.jpg" class="img-fluid rounded shadow-lg" alt="About TravleMaster">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Specialities Section -->
+        <section class="specialities-section shadow-lg mt-4" id="plan">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 cla="fw-bold">Our Specialities</h2>
+                    <p class="lead">Discover what sets TravelMaster apart from the rest.</p>
+                </div>
+                <div class="row g-4">
+                    <!--specialities-card 1-->
+                    <div class="col-md-4">
+                        <a href="3dmap.html">
+                            <div class="card specialities-card h-100 p-3 border rounded ">
+                                <img src="images/s1.jpg" class="img-fluid card-img-top" alt="3d maps">
+                                <div class="card-body d-flex flex-column text-center mt-auto">
+                                    <h5 class="card-title mt-3 fw-bold mt-auto">3D Maps</h5>
+                                    <p clas="card-text mt-auto">Experience immersive 3D maps that bring your travel
+                                        destination to life.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!--specialities-card 2-->
+                    <div class="col-md-4">
+                        <a href="itinerary-generator.html">
+                            <div class="card specialities-card h-100 p-3 border rounded">
+                                <img src="images/s2.jpg" class="img-fluid card-img-top" alt="Smart Itinerary">
+                                <div class="card-body d-flex flex-column text-center mt-auto">
+                                    <h5 class="card-title mt-3 fw-bold mt-auto">Smart Itinerary Generator</h5>
+                                    <p class="card-text mt-auto">Get customized travel plans tailored to your
+                                        preferences and budget.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!--specialities-card 3-->
+                    <div class="col-md-4">
+                        <a href="budget-estimator.html">
+                            <div class="card specialities-card h-100 p-3 border rounded">
+                                <img src="images/s3.jpg" class="img-fluid card-img-top mt-auto" alt="Budget Estimator">
+                                <div class="card-body d-flex flex-column text-center mt-auto">
+                                    <h5 class="card-title mt-3 fw-bold">Budget Estimator</h5>
+                                    <p class="card-text">Plan your travel budget with our detailed cost calculator and
+                                        get money-saving tips.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Destinations Section -->
+        <section class="destination-section shadow-lg mt-4" id="destinations">
+            <div class="container">
+                <p class="smalltext mt-3"> Travel Made Easy</p>
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold">Featured Destinations</h2>
+                    <p class="lead">Discover our curated selection of must-visit spots.</p>
+                </div>
+                <div class="row g-4">
+                    <!-- Destinations Card 1 -->
+                    <div class="col-md-4">
+                        <div class="card destination-card h-100">
+                            <img src="images/destination-1.jpg" class="img-fluid card-img-top" alt="Tropical Paradise">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Tropical Paradise</h5>
+                                <p class="card-text mt-auto">Experience the ultimate beach getaway with crystal clear
+                                    waters.
+                                </p>
+                                <a href="tropical.html" class="btn btn-primary mt-auto">
+                                    <span>Explore Now</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Destinations Card 2 -->
+                    <div class="col-md-4">
+                        <div class="card destination-card h-100">
+                            <img src="images/destination-2.jpg" class="img-fluid card-img-top" alt="City Lights">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title city">City Lights</h5>
+                                <p class="card-text mt-auto">Immerse yourself in the vibrant culture, modern and
+                                    nightlife.</p>
+                                <a href="City.html" class="btn btn-primary mt-auto"><span>Explore Now</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Destinations Card 3 -->
+                    <div class="col-md-4">
+                        <div class="card destination-card h-100">
+                            <img src="images/destination-3.jpg" class="img-fluid card-img-top" alt="Mountain Escape">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Mountain Escape</h5>
+                                <p class="card-text mt-auto">Breathe in the fresh mountain air and explore scenic
+                                    trails.</p>
+                                <a href="Mountain.html" class="btn btn-primary mt-auto"><span>Explore Now</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Testimonials Section -->
+        <section class="testimonials-section shadow-lg mt-4">
+            <div class="container">
+                <p class="smalltext mt-3"> Travelers Love Us</p>
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold">Traveler Testimonials</h2>
+                    <p class="lead">Hear from our satisfied globetrotters</p>
+                </div>
+                <div class="row g-4">
+                    <!-- Testimonial Card 1 -->
+                    <div class="col-md-4">
+                        <div class="card testimonial-card h-100">
+                            <img src="images/testimonial1.jpg" class="img-fluid rounded-circle shadow-lg mx-auto"
+                                alt="Alice" style="width: 80px; height: 80px;">
+                            <div class="card-body  d-flex flex-column text-center">
+                                <p class="card-text mt-auto">"TravleMaster made my trip unforgettable! The personalized
+                                    itinerary was perfect for
+                                    my needs."</p>
+                                <h5 class="card-title mt-auto">Alice, Italy</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial Card 2 -->
+                    <div class="col-md-4">
+                        <div class="card testimonial-card h-100">
+                            <img src="images/testimonial2.jpg" class="img-fluid rounded-circle shadow-lg mx-auto"
+                                alt="Bob" style="width: 80px; height: 80px;">
+                            <div class="card-body  d-flex flex-column text-center">
+                                <p class="card-text mt-auto">"A seamless experience from start to finish. I highly
+                                    recommend
+                                    TravleMaster to all
+                                    travelers!"</p>
+                                <h5 class="card-title mt-auto">Bob, Japan</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial Card 3 -->
+                    <div class="col-md-4">
+                        <div class="card testimonial-card h-100">
+                            <img src="images/testimonial3.jpg" class="img-fluid  rounded-circle shadow-lg mx-auto"
+                                alt="Claire" style="width: 80px; height: 80px;">
+                            <div class="card-body  d-flex flex-column text-center">
+                                <p class="card-text mt-auto">"I never knew planning a trip could be this enjoyable.
+                                    Amazing
+                                    service and incredible
+                                    destinations!"</p>
+                                <h5 class="card-title mt-auto">Claire, Australia</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--FAQ Section-->
+        <section class="faq-section shadow-lg mt-4" id="faq">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold">Freuently Asked Questions</h2>
+                    <p class="lead">Find answers to some of the most common questions about TravleMaster.</p>
+                </div>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                What is TravleMaster?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                TravleMaster is an AI-powered travel planning service that offers personalized
+                                itineraries, expert recommendations, and budget-friendly options to help you plan your
+                                perfect journey.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                How does the AI-powered itinerary work?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Our AI analyzes your travel preferences, budget, and interests to generate a
+                                personalized itinerary that includes recommended destinations, activities, and travel
+                                tips.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Can I customize my itinerary?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                            data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes! While our AI provides a detailed itinerary, you can always customize it by adding
+                                or removing activities based on your preferences.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Newsletter Section -->
+        <section class="      shadow-lg mt-4" id="newsletter">
+            <div class="container text-center">
+                <h2 class="fw-bold mb-3">Subscribe to Our Newsletter</h2>
+                <p class="lead mb-4">Get the latest travel tips and exclusive offers delivered straight to your inbox.
+                </p>
+                <form class="d-flex flex-column flex-md-row justify-content-center align-items-center">
+                    <input type="email" class="form-control mb-3 mb-md-0 me-md-3" placeholder="Enter your email"
+                        required>
+                    <button type="submit" class="btn btn-subscribe" id="btn-subscribe">
+                        <span>Subscribe</span>
+                    </button>
+                </form>
+                <p class="small mt-3">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+        </section>
+        <!--Contact Section-->
+        <section class="contact-section py-5 shadow-lg mt-4" id="contact">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold">Get in Touch</h2>
+                    <p class="lead">We're here to help you plan your perfect journey</p>
+                </div>
+                <div class="row">
+                    <!--form column-->
+                    <div class="col-lg-7 mb-4 mb-lg-0">
+                        <form id="contactForm" onsubmit="return handleContactSubmission(event)">
+                            <div class="mb-3">
+                                <label for="contactname" class="form-label">Name<span>*</span></label>
+                                <input type="text" class="form-control" id="contactname" placeholder="Jane Smith"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contactemail" class="form-label">Email Address<span>*</span></label>
+                                <input type="email" class="form-control" id="contactemail"
+                                    placeholder="janesmith@gmail.com" required aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contactnum" class="form-label">Contact Number<span>*</span></label>
+                                <input type="tel" class="form-control" id="contactnum" placeholder="555-555-555"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contactMessage" class="form-label">Message</label>
+                                <textarea class="form-control" id="contactMessage" rows="5"
+                                    placeholder="Your message here..." required></textarea>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="storeSubmission" required>
+                                <label class="form-check-label" for="storeSubmission">
+                                    Allow this website to store my submission so they can respond to my inquiry.
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span>SUBMIT</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-lg-5">
+                        <div id="userInfo" class="mb-3">
+                        </div>
+                        <div id="mapContainer" class="shadow-lg" style="perspective: 1000px;">
+                            <iframe id="mapFrame" src="" width="100%" height="400" style="transform: rotateX(5deg);"
+                                allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer Section -->
+        <footer class="site-footer shadow-lg mt-4"
+            style="background: rgba(0, 0, 0, 0.6); border-top: 1px solid rgba(255, 140, 0, 0.2);">
+            <div class="container text-center">
+                <div class="row">
+                    <!-- Quick Links -->
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h3 style="color: #FFA500;">Quick Links</h3>
+                        <ul class="list-unstyled">
+                            <li><a href="#home" class="footer-link">Home</a></li>
+                            <li><a href="#start" class="footer-link">About</a></li>
+                            <li><a href="#destinations" class="footer-link">Destinations</a></li>
+                            <li><a href="#contact" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+                    <!-- Social Media -->
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h3 style="color: #FFA500;">Follow Us</h3>
+                        <div class="social-icons">
+                            <a href="https://facebook.com" target="_blank" class="social-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" class="social-icon">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="social-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://youtube.com" target="_blank" class="social-icon">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Contact Info -->
+                    <div class="col-md-4">
+                        <h3 style="color: #FFA500;">Contact</h3>
+                        <p style="color: #fff;font-size: 18px;">info@travlemaster.com</p>
+                        <p style="color: #fff;font-size: 18px;">+1 (555) 123-4567</p>
+                    </div>
+                </div>
+                <hr style="border-color: rgba(255, 140, 0, 0.2);">
+                <p class="small" style="color: #fff;">&copy; 2023 TravleMaster. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

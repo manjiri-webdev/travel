@@ -1,0 +1,59 @@
+
+@media only screen and (min-width:200px) and (max-width:575px)  {
+    .navbar-collapse {
+        background: rgba(10, 25, 47, 0.95);
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .nav-link {
+        color: #fff;
+        padding: 10px;
+    }
+
+    .form-check-label,
+    .btn-signin {
+        font-size: 14px;
+    }
+
+    .btn-signin {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .destination-card .city{
+        padding-bottom:0;
+    }
+}
+
+@media (min-width:1400px) {
+
+    .container-fluid,
+    .container-fluid-lg,
+    .container-fluid-nd,
+    .container-fluid-sm,
+    .container-fluid-xl,
+    .container-fluid-xxl {
+        max-width: 1620px;
+    }
+}
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: #f0d7b0;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    .nav-link {
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    .btn-signin {
+        margin-top: 10px;
+        width: 100%;
+    }
+}
